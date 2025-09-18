@@ -1,5 +1,3 @@
-.idea/
-Library/
-Logs/
-obj/
-Temp/
+﻿Temp
+Logs
+Library
