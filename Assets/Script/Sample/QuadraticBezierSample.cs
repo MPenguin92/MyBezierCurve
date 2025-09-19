@@ -16,40 +16,44 @@ namespace Script.Sample
         [SerializeField] 
         private LerpSample lerpSample3;
         [SerializeField] 
+        private LerpSample lerpSample4;
+        [SerializeField] 
+        private LerpSample lerpSample5;
+        [SerializeField] 
+        private LerpSample lerpSample6;
+        [SerializeField] 
         private LineDrawer lineDrawer;
-        public void Init()
-        {
-            lerpSample1.Init(new Vector3(0, 0, 0), new Vector3(3, 3, 0),Color.yellow);
-            lerpSample2.Init(new Vector3(3, 3, 0), new Vector3(6, 0, 0),Color.yellow);
-        }
 
-        private readonly List<Vector3> mPointPosList = new List<Vector3>();
-        private readonly List<Vector3> mPointPosListClone = new List<Vector3>();
+
+
+        [SerializeField] 
+        private Transform dot1;
+        [SerializeField] 
+        private Transform dot2;
+        [SerializeField] 
+        private Transform dot3;
+        [SerializeField] 
+        private Transform dot4;
+
+        private float alpha = 1;
         
         public void Tick(float lerpTime)
         {
+            alpha = Mathf.PingPong(lerpTime + 1,1);
+            lerpSample1.Init(dot1.position, dot2.position,Color.yellow*alpha,Color.white*alpha,Color.white);
+            lerpSample2.Init(dot2.position, dot3.position,Color.yellow*alpha,Color.white*alpha,Color.white);
+            lerpSample3.Init(dot3.position, dot4.position,Color.yellow*alpha,Color.white*alpha,Color.white);
+            
             lerpSample1.Tick(lerpTime);
             lerpSample2.Tick(lerpTime);
-            
-            lerpSample3.Init( lerpSample1.GetLerpPos(),  lerpSample2.GetLerpPos(),Color.cyan);
             lerpSample3.Tick(lerpTime);
+            lerpSample4.Init( lerpSample1.GetLerpPos(),  lerpSample2.GetLerpPos(),Color.cyan * alpha,Color.cyan * alpha,Color.clear);
+            lerpSample4.Tick(lerpTime);
+            lerpSample5.Init( lerpSample2.GetLerpPos(),  lerpSample3.GetLerpPos(),Color.cyan *alpha,Color.cyan * alpha,Color.clear);
+            lerpSample5.Tick(lerpTime);
+            lerpSample6.Init( lerpSample4.GetLerpPos(),  lerpSample5.GetLerpPos(),Color.magenta,Color.white * alpha,Color.clear);
+            lerpSample6.Tick(lerpTime);
 
-            float t = Mathf.PingPong(lerpTime, 1);
-            if (lerpTime <= 1)
-            {
-                mPointPosList.Add(lerpSample3.GetLerpPos());
-                mPointPosListClone.Add(lerpSample3.GetLerpPos());
-            }
-            else
-            {
-                mPointPosListClone.Clear();
-                for (int i = 0; i < t * mPointPosList.Count; i++)
-                {
-                    mPointPosListClone.Add(mPointPosList[i]);
-                }
-            }
-     
-            lineDrawer.SetPoint(mPointPosListClone,Color.cyan,Color.clear);
         }
     }
 }

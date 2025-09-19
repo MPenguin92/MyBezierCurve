@@ -19,12 +19,12 @@ namespace Script.Sample
         [SerializeField]
         private LerpDot lerpDot;
         
-        public void Init(Vector3 start,Vector3 end, Color tDotColor)
+        public void Init(Vector3 start,Vector3 end, Color tDotColor,Color lineColor,Color lineDotColor)
         {
             mPointPosList.Clear();
             mLerpData = new LerpData(start, end);
             mLerpData.GetPointList(mPointPosList);
-            lineDrawer.SetPoint(mPointPosList, Color.white, Color.white,0.1f);
+            lineDrawer.SetPoint(mPointPosList, lineColor, lineDotColor,0.1f);
             lerpDot.SetColor(tDotColor);
         }
 
@@ -39,6 +39,16 @@ namespace Script.Sample
         public Vector3 GetLerpPos()
         {
             return mLerpPos;
+        }
+
+        public void GetAllTickPoint(List<Vector3> list)
+        {
+            float t = 0;
+            while (t<=1)
+            {
+                list.Add(mLerpData.GetLerpPos(t));
+                t += Time.deltaTime;
+            }
         }
     }
 }

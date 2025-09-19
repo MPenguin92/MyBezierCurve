@@ -29,6 +29,7 @@ namespace Script
         public void SetColor(Color color)
         {
             mObjectRenderer.material.SetColor(Util.ColorShader,color);
+            mText.color = color;
         }
     
     }

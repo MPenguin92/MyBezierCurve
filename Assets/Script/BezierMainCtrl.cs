@@ -16,13 +16,12 @@ public class BezierMainCtrl : MonoBehaviour
     
     void Start()
     {
-        lerpSample.Init(new Vector3(0, 0, 0), new Vector3(3, 0, 0),Color.yellow);
-        quadraticBezierSample.Init();
+        lerpSample.Init(new Vector3(0, 0, 0), new Vector3(3, 0, 0),Color.yellow,Color.white,Color.white);
     }
 
     private void Update()
     {
-        mLerpTime += Time.deltaTime * 0.2f;
+        mLerpTime += Time.deltaTime * 0.5f;
         lerpSample.Tick(mLerpTime);
         quadraticBezierSample.Tick(mLerpTime);
     }
